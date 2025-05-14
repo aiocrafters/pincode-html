@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Pincode Search</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <h1><i class="icon">🔗</i> India Pincode Search</h1>
+        
+        <div class="search-box">
+            <div class="search-row">
+                <div class="search-group">
+                    <label for="state">State</label>
+                    <select id="state">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+                
+                <div class="search-group">
+                    <label for="district">District</label>
+                    <select id="district" disabled>
+                        <option value="">Select District</option>
+                    </select>
+                </div>
+                
+                <div class="search-group">
+                    <label for="office">Post Office</label>
+                    <select id="office" disabled>
+                        <option value="">Select Office</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+
+        <div id="results" class="results"></div>
+
+        <div class="map-container">
+            <div id="map"></div>
+            <div id="map-placeholder" class="map-placeholder">
+                <div class="placeholder-content">
+                    <div class="icon">🗺️</div>
+                    <p>Map will appear here when location data is available</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="nearby" class="nearby-pincodes">
+            <h3>Nearby Pincodes in this District</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Post Office</th>
+                            <th>Pincode</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="nearby-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>

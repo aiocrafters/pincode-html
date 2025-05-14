@@ -1,0 +1,98 @@
+[
+    {
+        "office": "Mumbai GPO",
+        "pincode": "400001",
+        "officeType": "GPO",
+        "delivery": "Delivery",
+        "division": "Mumbai City",
+        "region": "Mumbai",
+        "state": "Maharashtra",
+        "district": "Mumbai",
+        "latitude": "18.9398",
+        "longitude": "72.8354"
+    },
+    {
+        "office": "Fort Mumbai",
+        "pincode": "400023",
+        "officeType": "BO",
+        "delivery": "Delivery",
+        "division": "Mumbai City",
+        "region": "Mumbai",
+        "state": "Maharashtra",
+        "district": "Mumbai",
+        "latitude": "18.9276",
+        "longitude": "72.8325"
+    },
+    {
+        "office": "Churchgate S.O",
+        "pincode": "400020",
+        "officeType": "SO",
+        "delivery": "Delivery",
+        "division": "Mumbai City",
+        "region": "Mumbai",
+        "state": "Maharashtra",
+        "district": "Mumbai",
+        "latitude": "18.9330",
+        "longitude": "72.8265"
+    },
+    {
+        "office": "Bangalore GPO",
+        "pincode": "560001",
+        "officeType": "GPO",
+        "delivery": "Delivery",
+        "division": "Bangalore East",
+        "region": "Bangalore",
+        "state": "Karnataka",
+        "district": "Bangalore",
+        "latitude": "12.9716",
+        "longitude": "77.5946"
+    },
+    {
+        "office": "Koramangala S.O",
+        "pincode": "560034",
+        "officeType": "SO",
+        "delivery": "Delivery",
+        "division": "Bangalore South",
+        "region": "Bangalore",
+        "state": "Karnataka",
+        "district": "Bangalore",
+        "latitude": "12.9352",
+        "longitude": "77.6245"
+    },
+    {
+        "office": "Whitefield B.O",
+        "pincode": "560066",
+        "officeType": "BO",
+        "delivery": "Delivery",
+        "division": "Bangalore East",
+        "region": "Bangalore",
+        "state": "Karnataka",
+        "district": "Bangalore",
+        "latitude": "12.9698",
+        "longitude": "77.7500"
+    },
+    {
+        "office": "Connaught Place",
+        "pincode": "110001",
+        "officeType": "SO",
+        "delivery": "Delivery",
+        "division": "New Delhi Central",
+        "region": "Delhi",
+        "state": "Delhi",
+        "district": "New Delhi",
+        "latitude": "28.6315",
+        "longitude": "77.2167"
+    },
+    {
+        "office": "New Delhi GPO",
+        "pincode": "110001",
+        "officeType": "GPO",
+        "delivery": "Delivery",
+        "division": "New Delhi Central",
+        "region": "Delhi",
+        "state": "Delhi",
+        "district": "New Delhi",
+        "latitude": "28.6358",
+        "longitude": "77.2245"
+    }
+]

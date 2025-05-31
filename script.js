@@ -20,8 +20,9 @@ async function init() {
     showLoading(true);
     try {
         // Load pincode data from JSON file
-        const response = await fetch('pincodes.json');
-        pincodeData = await response.json();
+        const response = await fetch('india-pincodes.json');
+        const data = await response.json();
+        pincodeData = data.records; // Access the 'records' array
         
         // Populate states dropdown
         populateStates();
@@ -43,7 +44,7 @@ async function init() {
 
 // Populate states dropdown
 function populateStates() {
-    const states = [...new Set(pincodeData.map(item => item.state))].sort();
+    const states = [...new Set(pincodeData.map(item => item.statename))].sort();
     
     stateSelect.innerHTML = '<option value="">Select State</option>';
     states.forEach(state => {
@@ -77,7 +78,7 @@ function handleStateChange() {
     // Populate districts for selected state
     const districts = [...new Set(
         pincodeData
-            .filter(item => item.state === state)
+            .filter(item => item.statename === state)
             .map(item => item.district)
     )].sort();
     
@@ -112,13 +113,13 @@ function handleDistrictChange() {
     
     // Populate offices for selected district
     const offices = pincodeData
-        .filter(item => item.state === state && item.district === district)
-        .sort((a, b) => a.office.localeCompare(b.office));
+        .filter(item => item.statename === state && item.district === district)
+        .sort((a, b) => a.officename.localeCompare(b.officename));
     
     offices.forEach(office => {
         const option = document.createElement('option');
-        option.value = office.office;
-        option.textContent = office.office;
+        option.value = office.officename;
+        option.textContent = office.officename;
         option.dataset.pincode = office.pincode;
         officeSelect.appendChild(option);
     });
@@ -143,9 +144,9 @@ function handleOfficeChange() {
     const pincode = selectedOption.dataset.pincode;
     
     const record = pincodeData.find(item => 
-        item.state === state && 
+        item.statename === state && 
         item.district === district && 
-        item.office === office && 
+        item.officename === office && 
         item.pincode === pincode
     );
     
@@ -167,12 +168,12 @@ function displayResults(record) {
     const lng = record.longitude ? parseFloat(record.longitude).toFixed(6) : 'N/A';
     
     // Update page title
-    document.title = `Pincode ${record.pincode} - ${record.office} | ${record.district}, ${record.state}`;
+    document.title = `Pincode ${record.pincode} - ${record.officename} | ${record.district}, ${record.statename}`;
     
     // Create results HTML
     resultsDiv.innerHTML = `
         <div class="result-card">
-            <h2>${record.office}</h2>
+            <h2>${record.officename}</h2>
             <div class="result-row">
                 <div class="result-col">
                     <div class="result-item">
@@ -181,25 +182,29 @@ function displayResults(record) {
                     </div>
                     <div class="result-item">
                         <span class="result-label">State:</span>
-                        <span>${record.state || 'N/A'}</span>
+                        <span>${record.statename || 'N/A'}</span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">District:</span>
                         <span>${record.district || 'N/A'}</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Region:</span>
-                        <span>${record.region || 'N/A'}</span>
+                        <span class="result-label">Circle:</span>
+                        <span>${record.circlename || 'N/A'}</span>
                     </div>
                 </div>
                 <div class="result-col">
                     <div class="result-item">
                         <span class="result-label">Division:</span>
-                        <span>${record.division || 'N/A'}</span>
+                        <span>${record.divisionname || 'N/A'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Region:</span>
+                        <span>${record.regionname || 'N/A'}</span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">Office Type:</span>
-                        <span>${record.officeType || 'N/A'}</span>
+                        <span>${record.officetype || 'N/A'}</span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">Delivery:</span>
@@ -215,8 +220,8 @@ function displayResults(record) {
     `;
     
     // Show map if coordinates are available
-    if (record.latitude && record.longitude) {
-        showMap(record.latitude, record.longitude, record.office);
+    if (record.latitude && record.longitude && !isNaN(parseFloat(record.latitude)) && !isNaN(parseFloat(record.longitude))) {
+        showMap(parseFloat(record.latitude), parseFloat(record.longitude), record.officename);
     } else {
         hideMap();
     }
@@ -280,11 +285,11 @@ function hideMap() {
 function showNearbyPincodes(state, district, currentPincode) {
     const nearby = pincodeData
         .filter(item => 
-            item.state === state && 
+            item.statename === state && 
             item.district === district && 
             item.pincode !== currentPincode
         )
-        .sort((a, b) => a.office.localeCompare(b.office));
+        .sort((a, b) => a.officename.localeCompare(b.officename));
     
     if (nearby.length === 0) {
         nearbyDiv.style.display = 'none';
@@ -295,12 +300,12 @@ function showNearbyPincodes(state, district, currentPincode) {
     nearby.forEach(office => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><a href="#" data-state="${encodeURIComponent(office.state)}" 
+            <td><a href="#" data-state="${encodeURIComponent(office.statename)}" 
                    data-district="${encodeURIComponent(office.district)}" 
-                   data-office="${encodeURIComponent(office.office)}"
-                   data-pincode="${office.pincode}">${office.office}</a></td>
+                   data-office="${encodeURIComponent(office.officename)}"
+                   data-pincode="${office.pincode}">${office.officename}</a></td>
             <td>${office.pincode}</td>
-            <td>${office.officeType || 'N/A'}</td>
+            <td>${office.officetype || 'N/A'}</td>
         `;
         nearbyBody.appendChild(row);
     });
